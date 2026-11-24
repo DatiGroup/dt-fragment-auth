@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dt-fragment-auth"
+version = "0.3.2"
+description = "Authentication and twin-membership checks for DigiTDevOps fragment APIs (REST and WebSocket)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "DigiTDevOps", email = "digitdevops@rtu.lv" }]
+keywords = ["authentication", "keycloak", "jwt", "fastapi", "websocket"]
+dependencies = [
+    "pyjwt[crypto]>=2.8,<3",
+    "httpx>=0.24",
+]
+
+[project.optional-dependencies]
+# The REST dependency and WebSocket helper need FastAPI/Starlette, which a
+# fragment API already has; the extra only pins a floor.
+fastapi = ["fastapi>=0.100"]
+dev = [
+    "fastapi>=0.100",
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+]
+
+[project.urls]
+Repository = "https://github.com/DatiGroup/dt-fragment-auth"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dt_fragment_auth*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
